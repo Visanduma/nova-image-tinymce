@@ -1,6 +1,6 @@
 {
-    "name": "kraftbit/nova-tinymce5-editor",
-    "description": "A Laravel Nova field.",
+    "name": "visanduma/nova-media-tinymce",
+    "description": "A Laravel Nova TinyMCE field with media support",
     "homepage": "https://github.com/Kraftbit/nova-tinymce5-editor",
     "keywords": [
         "laravel",
