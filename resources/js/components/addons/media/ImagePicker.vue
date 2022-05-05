@@ -20,7 +20,7 @@
             </div>
           </form>
 
-          <div class="ml-auto">
+          <div v-if="field.upload" class="ml-auto">
 
               <span class="form-file mr-4">
                 <input @change="handleFileUpload" ref="file" dusk="photo" type="file" id="file-teams-photo" name="name" accept="image/*" class="form-file-input select-none">
@@ -38,6 +38,7 @@
           <div class="flex flex-wrap nml-display-gallery">
 
             <image-block-mt @choose="selectImage(image)" v-for="(image,k) in images" :key="k" :image="image"/>
+            <p class="p-5" v-empty="images">Nothing here !</p>
 
           </div>
         </div>
@@ -68,7 +69,10 @@
 </template>
 
 <script>
+
+
 export default {
+ props:['field'],
   data() {
     return {
       images: [],
@@ -98,6 +102,9 @@ export default {
 
             this.pagination = res.data.links
           })
+          .catch(e=>{
+            this.$toasted.show("Unable to load images !",{type: 'error'})
+          })
     },
 
     selectImage(img) {
@@ -126,6 +133,9 @@ export default {
             this.imagesIsLoading = false
 
             this.pagination = []
+          })
+          .catch(e=>{
+            this.$toasted.show("Unable to search images !",{type: 'error'})
           })
     },
 

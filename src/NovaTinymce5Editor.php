@@ -23,6 +23,8 @@ class NovaTinymce5Editor extends Field
 
         $this->withMeta([
             'options' => config('nova-tinymce5-editor.options', []),
+            'imageGalary' => false,
+            'upload' => true
         ]);
     }
 
@@ -79,6 +81,24 @@ class NovaTinymce5Editor extends Field
     {
         $this->withMeta([
             'placeholder' => $placeholder,
+        ]);
+
+        return $this;
+    }
+
+    public function useImageGallary()
+    {
+        $this->withMeta([
+            'imageGallary' => true
+        ]);
+
+        return $this;
+    }
+
+    public function withoutImageUpload()
+    {
+        $this->withMeta([
+            'upload' => false
         ]);
 
         return $this;

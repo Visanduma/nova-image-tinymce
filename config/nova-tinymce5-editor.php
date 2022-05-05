@@ -22,7 +22,7 @@ return [
             'paste code wordcount autoresize table',
         ],
         'toolbar' => [
-            'undo redo | formatselect forecolor backcolor |
+            'media-picker | undo redo | formatselect forecolor backcolor |
                  bold italic underline strikethrough blockquote removeformat |
                  align bullist numlist outdent indent | link table media insertmedialibrary | code',
         ],

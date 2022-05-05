@@ -9,9 +9,8 @@ class MediaController implements MediaControllerInterface
 {
     public function getImages(Request $request)
     {
-        $images = Media::paginate();
 
-        sleep(1);
+        $images = Media::paginate();
 
         return $images->through(function($itm){
             return  [
@@ -37,12 +36,13 @@ class MediaController implements MediaControllerInterface
         });
     }
 
-    public function uploadimage(Request $request)
+    public function uploadImage(Request $request)
     {
         // handle uploaded image & return url of uploaded image
-        sleep(2);
+        // ex.
+
         return [
-            'name' => "uploadde image",
+            'name' => "Uploaded image",
             'preview_url' => "https://picsum.photos/200/300?random=234",
             'image_url' => "https://picsum.photos/200/300?random=2343",
             'size'  =>  '78KB'

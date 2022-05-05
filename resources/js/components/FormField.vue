@@ -14,7 +14,7 @@
                 :name="field.name"
                 />
         </template>
-      <media-picker-nova-tinymce5-editor @choose="handleImageChoose" v-if="showMediaPicker" @close="handleMediaPicker(false)"/>
+      <media-picker-nova-tinymce5-editor :field="field" @choose="handleImageChoose" v-if="showMediaPicker" @close="handleMediaPicker(false)"/>
     </default-field>
 </template>
 
@@ -37,7 +37,7 @@ export default {
                     editorPlugins: this.field.options.plugins,
                     editorToolbar: this.field.options.toolbar,
                     apiKey: this.field.options.apiKey,
-              showMediaPicker:false
+                    showMediaPicker:false
                 }
         },
 
@@ -48,8 +48,7 @@ export default {
             let editorConfig = this.editorConfigInit
             let self = this
 
-          console.log(this.field)
-            if(this.field.mediaLibrary == true){
+            if(this.field.imageGallary == true){
 
 
               editorConfig['setup'] =  function(editor){

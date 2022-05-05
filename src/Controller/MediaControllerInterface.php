@@ -12,7 +12,7 @@ interface MediaControllerInterface
 
     public function searchImages(string $query);
 
-    public function uploadimage(Request $request);
+    public function uploadImage(Request $request);
 
 
 }
