@@ -14,6 +14,7 @@
                 :name="field.name"
                 />
         </template>
+      <media-picker-nova-tinymce5-editor @choose="handleImageChoose" v-if="showMediaPicker" @close="handleMediaPicker(false)"/>
     </default-field>
 </template>
 
@@ -35,7 +36,8 @@ export default {
                     editorConfigInit: this.field.options.init,
                     editorPlugins: this.field.options.plugins,
                     editorToolbar: this.field.options.toolbar,
-                    apiKey: this.field.options.apiKey
+                    apiKey: this.field.options.apiKey,
+              showMediaPicker:false
                 }
         },
 
@@ -44,15 +46,29 @@ export default {
         editorConfig: function() {
 
             let editorConfig = this.editorConfigInit
+            let self = this
 
+          console.log(this.field)
             if(this.field.mediaLibrary == true){
-                editorConfig['selector'] = this.field.id
 
-                window.mediaLibrarySelectFiles = function (filesArray, options) {
-                    tinymce.get(options.editor).insertContent('<img src="'+ filesArray[0].url +'">');
-                }
+
+              editorConfig['setup'] =  function(editor){
+
+                self.$on('i-have-images',function(images){
+                  editor.insertContent('<img src="'+ images[0].image_url +'">');
+                })
+
+                editor.ui.registry.addButton('media-picker', {
+                  text: 'Media Gallary',
+                  onAction: function (_) {
+                    self.handleMediaPicker(true)
+                  }
+                });
+              }
 
             }
+
+
 
             return editorConfig
         }
@@ -78,7 +94,16 @@ export default {
          */
         handleChange(value) {
             this.value = value
-        }
+        },
+
+        handleMediaPicker(val){
+          this.showMediaPicker = val
+        },
+
+      handleImageChoose(imgs){
+          console.log(imgs)
+          this.$emit('i-have-images',imgs)
+      }
     },
 }
 </script>

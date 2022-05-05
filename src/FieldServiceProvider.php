@@ -2,9 +2,11 @@
 
 namespace Kraftbit\NovaTinymce5Editor;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
+use Visanduma\NovaTwoFactor\Http\Middleware\Authorize;
 
 class FieldServiceProvider extends ServiceProvider
 {
@@ -13,6 +15,13 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+//        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+
+        Route::middleware(['nova', Authorize::class])
+            ->prefix('nova-vendor/nova-media-tinymce')
+            ->group(__DIR__.'/../routes/api.php');
+
         Nova::serving(function (ServingNova $event) {
             Nova::script('nova-tinymce5-editor', __DIR__.'/../dist/js/field.js');
             Nova::style('nova-tinymce5-editor', __DIR__.'/../dist/css/field.css');
