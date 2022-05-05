@@ -35,10 +35,11 @@
 <!--        gallary -->
         <loading-view :loading="imagesIsLoading">
           <div class="p-4">
-          <div class="flex flex-wrap nml-display-gallery">
+          <div class="flex flex-wrap">
 
             <image-block-mt @choose="selectImage(image)" v-for="(image,k) in images" :key="k" :image="image"/>
-            <p class="p-5" v-empty="images">Nothing here !</p>
+
+            <p class="p-5" v-if="images == []">Nothing here !</p>
 
           </div>
         </div>

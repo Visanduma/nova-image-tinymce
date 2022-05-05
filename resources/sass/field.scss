@@ -28,8 +28,10 @@
     text-align: center;
 }
 
-.nml-icon-image{
+.img-container{
     position: relative;
+    height: 150px;
+    width: 150px;
     &:hover, &:active,&:focus{
         .img-text{
             transform: scale(1);
