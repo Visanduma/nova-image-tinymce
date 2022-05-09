@@ -35,7 +35,7 @@
 <!--        gallary -->
         <loading-view :loading="imagesIsLoading">
           <div class="p-4">
-          <div class="flex flex-wrap">
+          <div class="gallery">
 
             <image-block-mt @choose="selectImage(image)" v-for="(image,k) in images" :key="k" :image="image"/>
 

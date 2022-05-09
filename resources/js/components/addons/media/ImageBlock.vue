@@ -1,12 +1,12 @@
 <template>
-  <div @click="$emit('choose',image)" :title="image.name" class="nml-item relative mb-2 cursor-pointer">
-    <div class="icon rounded-lg shadow-md nml-icon-image"
+  <div @click="$emit('choose',image)" :title="image.name" class="mb-2 cursor-pointer image-item">
+    <div class="rounded-lg shadow-md image-wrapper"
          :style=" 'background-image: url(&quot;' + image.preview_url + '&quot;)' ">
       <div class="img-text">
         {{ image.name }} <br> ({{ image.size }})
       </div>
     </div>
-    <div class="title truncate">{{ image.name }}</div>
+<!--    <div class="title truncate">{{ image.name }}</div>-->
   </div>
 </template>
 

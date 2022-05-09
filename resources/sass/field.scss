@@ -1,11 +1,7 @@
 // Nova Tool CSS
-.tox-tinymce{
-    border-color: #bacad6 !important;
-    border-radius: .5rem !important;
-}
+
 
 .img-text{
-    -webkit-transform: scale(0);
     transform: scale(0);
     position: absolute;
     top: 0;
@@ -15,11 +11,7 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     background-color: #00000080;
     color: #ffffff;
@@ -28,18 +20,32 @@
     text-align: center;
 }
 
-.img-container{
-    position: relative;
-    height: 150px;
-    width: 150px;
-    &:hover, &:active,&:focus{
-        .img-text{
-            transform: scale(1);
-        }
-    }
-}
 
 button.pagination-active{
     background-color: white;
     border-radius: 50%;
 }
+
+.gallery{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    justify-content: flex-start;
+
+    .image-wrapper{
+        width: 150px;
+        height: 150px;
+    }
+
+    .image-item{
+        margin: 5px;
+        position: relative;
+
+        &:hover, &:active,&:focus{
+            .img-text{
+                transform: scale(1);
+            }
+        }
+    }
+}
+
