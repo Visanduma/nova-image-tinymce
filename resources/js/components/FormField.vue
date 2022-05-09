@@ -57,8 +57,8 @@ export default {
                   editor.insertContent('<img src="'+ images[0].image_url +'">');
                 })
 
-                editor.ui.registry.addButton('media-picker', {
-                  text: 'Media Gallary',
+                editor.ui.registry.addButton('image-gallery', {
+                  text: 'Image Gallary',
                   onAction: function (_) {
                     self.handleMediaPicker(true)
                   }

@@ -89,7 +89,7 @@ class NovaTinymce5Editor extends Field
     public function useImageGallary()
     {
         $this->withMeta([
-            'imageGallary' => true
+            'imageGallary' => true,
         ]);
 
         return $this;

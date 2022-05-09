@@ -30,6 +30,10 @@ class FieldServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/nova-tinymce5-editor.php' => config_path('nova-tinymce5-editor.php'),
         ], 'config');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/tinymce_images_table.php' => database_path('migrations')
+        ],'migration');
     }
 
     /**
