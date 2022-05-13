@@ -22,11 +22,17 @@ return [
             'paste code wordcount autoresize table',
         ],
         'toolbar' => [
-            'media-picker | undo redo | formatselect forecolor backcolor |
+            'image-gallery | undo redo | formatselect forecolor backcolor |
                  bold italic underline strikethrough blockquote removeformat |
                  align bullist numlist outdent indent | link table media insertmedialibrary | code',
         ],
         'apiKey' => env('TINYMCE_API_KEY', ''),
+
+        'storage_path' => 'tinymce',
+
+        'image_url_path' => '/storage/tinymce/',
+
+        'media_handler' => \Kraftbit\NovaTinymce5Editor\Controller\MediaController::class
 
     ],
 ];

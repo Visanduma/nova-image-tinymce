@@ -12,13 +12,13 @@ class MediaController implements MediaControllerInterface
     public function getImages(Request $request)
     {
 
-        $images = DB::table('tinymce_media')->paginate();
+        $images = DB::table('tinymce_media')->latest()->paginate();
 
         return $images->through(function($itm){
             return  [
                 'name' => $itm->name,
-                'preview_url' => url('/storage/tinymce/'.$itm->file_name),
-                'image_url' => url('/storage/tinymce/'.$itm->file_name),
+                'preview_url' => url(config('nova-tinymce5-editor.options.image_url_path').$itm->file_name),
+                'image_url' => url(config('nova-tinymce5-editor.options.image_url_path').$itm->file_name),
                 'size'  =>  $itm->file_size
             ];
         });
@@ -31,8 +31,8 @@ class MediaController implements MediaControllerInterface
         return $images->map(function($itm){
             return  [
                 'name' => $itm->name,
-                'preview_url' => url('/storage/tinymce/'.$itm->file_name),
-                'image_url' => url('/storage/tinymce/'.$itm->file_name),
+                'preview_url' => url(config('nova-tinymce5-editor.options.image_url_path').$itm->file_name),
+                'image_url' => url(config('nova-tinymce5-editor.options.image_url_path').$itm->file_name),
                 'size'  =>  $itm->file_size
             ];
         });
@@ -43,19 +43,20 @@ class MediaController implements MediaControllerInterface
         if($request->hasFile('image')){
             $file = $request->file('image');
             $fileName = Str::random().".".$file->getClientOriginalExtension();
-            $file->storeAs('tinymce',$fileName);
+            $file->storeAs(config('nova-tinymce5-editor.options.storage_path'),$fileName);
 
             $rec = DB::table('tinymce_media')->insert([
                 'name' => $file->getClientOriginalName(),
                 'file_name' => $fileName,
                 'file_size' => $file->getSize(),
-                'disk' => config('filesystems.default')
+                'disk' => config('filesystems.default'),
+                'created_at' => now()
             ]);
 
             return [
                 'name' => $file->getClientOriginalName(),
-                'preview_url' => "https://picsum.photos/200/300?random=234",
-                'image_url' => "https://picsum.photos/200/300?random=2343",
+                'preview_url' => url(config('nova-tinymce5-editor.options.image_url_path').$fileName),
+                'image_url' => url(config('nova-tinymce5-editor.options.image_url_path').$fileName),
                 'size'  =>  $file->getSize()
             ];
         }
