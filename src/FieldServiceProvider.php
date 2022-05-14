@@ -26,13 +26,16 @@ class FieldServiceProvider extends ServiceProvider
             Nova::script('nova-tinymce5-editor', __DIR__.'/../dist/js/field.js');
             Nova::style('nova-tinymce5-editor', __DIR__.'/../dist/css/field.css');
         });
+        
+                $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
 
         $this->publishes([
             __DIR__.'/../config/nova-tinymce5-editor.php' => config_path('nova-tinymce5-editor.php'),
         ], 'config');
 
-        $this->publishes([
-            __DIR__.'/../database/migrations/tinymce_images_table.php' => database_path('migrations')
+         $this->publishes([
+            __DIR__.'/../database/migrations/2022_01_01_12526_create_tinymce_images_table' => database_path('migrations')
         ],'migration');
     }
 
