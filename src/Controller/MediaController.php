@@ -12,7 +12,7 @@ class MediaController implements MediaControllerInterface
     public function getImages(Request $request)
     {
 
-        $images = DB::table('tinymce_media')->latest()->paginate();
+        $images = DB::table('tinymce_images')->latest()->paginate();
 
         return $images->through(function($itm){
             return  [
@@ -26,7 +26,7 @@ class MediaController implements MediaControllerInterface
 
     public function searchImages($query)
     {
-        $images = DB::table('tinymce_media')->where('name','like' , "$query%")->take(10)->get();
+        $images = DB::table('tinymce_images')->where('name','like' , "$query%")->take(10)->get();
 
         return $images->map(function($itm){
             return  [
@@ -45,7 +45,7 @@ class MediaController implements MediaControllerInterface
             $fileName = Str::random().".".$file->getClientOriginalExtension();
             $file->storeAs(config('nova-tinymce5-editor.options.storage_path'),$fileName);
 
-            $rec = DB::table('tinymce_media')->insert([
+            $rec = DB::table('tinymce_images')->insert([
                 'name' => $file->getClientOriginalName(),
                 'file_name' => $fileName,
                 'file_size' => $file->getSize(),
