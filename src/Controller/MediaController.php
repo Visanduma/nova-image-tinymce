@@ -18,8 +18,8 @@ class MediaController implements MediaControllerInterface
             return  [
                 'id' => $itm->id,
                 'name' => $itm->name,
-                'preview_url' => url(config('nova-tinymce5-editor.options.image_url_path') . $itm->file_name),
-                'image_url' => url(config('nova-tinymce5-editor.options.image_url_path') . $itm->file_name),
+                'preview_url' => $this->getImageUrl($itm->file_name),
+                'image_url' => $this->getImageUrl($itm->file_name),
                 'size'  =>  $this->sizeFilter($itm->file_size)
             ];
         });
@@ -33,8 +33,8 @@ class MediaController implements MediaControllerInterface
             return  [
                 'id' => $itm->id,
                 'name' => $itm->name,
-                'preview_url' => url(config('nova-tinymce5-editor.options.image_url_path') . $itm->file_name),
-                'image_url' => url(config('nova-tinymce5-editor.options.image_url_path') . $itm->file_name),
+                'preview_url' => $this->getImageUrl($itm->file_name),
+                'image_url' => $this->getImageUrl($itm->file_name),
                 'size'  =>  $this->sizeFilter($itm->file_size)
             ];
         });
@@ -47,13 +47,13 @@ class MediaController implements MediaControllerInterface
             foreach ($request->file('images') as $file){
 
                 $fileName = Str::random() . "." . $file->getClientOriginalExtension();
-                $file->storeAs(config('nova-tinymce5-editor.options.storage_path'), $fileName);
+                $file->storeAs(Str::finish(config('nova-tinymce5-editor.options.storage_path'),"/"), $fileName, ['disk' => config('nova-tinymce5-editor.options.disk')]);
 
                 $rec = DB::table('tinymce_images')->insertGetId([
                     'name' => $file->getClientOriginalName(),
                     'file_name' => $fileName,
                     'file_size' => $file->getSize(),
-                    'disk' => config('filesystems.default'),
+                    'disk' => config('nova-tinymce5-editor.options.disk'),
                     'created_at' => now()
                 ]);
 
@@ -62,9 +62,9 @@ class MediaController implements MediaControllerInterface
                 $out[] = [
                     'id' => $rec->id,
                     'name' => $file->getClientOriginalName(),
-                    'preview_url' => url(config('nova-tinymce5-editor.options.image_url_path') . $fileName),
-                    'image_url' => url(config('nova-tinymce5-editor.options.image_url_path') . $fileName),
-                    'size'  =>  $this->sizeFilter($file->getSize())
+                    'preview_url' => $this->getImageUrl($rec->file_name),
+                    'image_url' => $this->getImageUrl($rec->file_name),
+                    'size'  =>  $this->sizeFilter($rec->file_size)
                 ];
 
             }
@@ -75,22 +75,18 @@ class MediaController implements MediaControllerInterface
         return [];
     }
 
-
     public function deleteImages(Request $request)
     {
         foreach ($request->get('images') as $img) {
             $file =  DB::table('tinymce_images')->where('id', $img)->first();
             // remove file from storage
-            Storage::delete(config('nova-tinymce5-editor.options.storage_path')."/".$file->file_name);
+            Storage::disk(config('nova-tinymce5-editor.options.disk'))->delete(config('nova-tinymce5-editor.options.storage_path')."/".$file->file_name);
             // remove db entry
             DB::table('tinymce_images')->delete($img);
         }
 
         return response()->json("Succesfuly deleted !");
     }
-
-
-
 
     private function sizeFilter($bytes)
     {
@@ -101,5 +97,10 @@ class MediaController implements MediaControllerInterface
             $bytes /= 1024, $i++
         );
         return (round($bytes, 2) . " " . $label[$i]);
+    }
+
+    private function getImageUrl($image)
+    {
+        return Storage::disk(config('nova-tinymce5-editor.options.disk'))->url(config('nova-tinymce5-editor.options.storage_path' ). $image);
     }
 }

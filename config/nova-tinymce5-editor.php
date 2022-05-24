@@ -28,11 +28,20 @@ return [
         ],
         'apiKey' => env('TINYMCE_API_KEY', ''),
 
-        'storage_path' => 'tinymce',
 
-        'image_url_path' => '/storage/tinymce/',
+        /*
+        |--------------------------------------------------------------------------
+        | Images related setup
+        |--------------------------------------------------------------------------
+        |
+        */
+
+        'storage_path' => 'tinymce/',
+
+        'disk' => env('FILESYSTEM_DRIVER','local'),
 
         'media_handler' => \Kraftbit\NovaTinymce5Editor\Controller\MediaController::class
 
     ],
 ];
+
