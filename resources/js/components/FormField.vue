@@ -54,11 +54,13 @@ export default {
               editorConfig['setup'] =  function(editor){
 
                 self.$on('i-have-images',function(images){
-                  editor.insertContent('<img src="'+ images[0].image_url +'">');
+                  images.forEach(img => {
+                    editor.insertContent('<img src="'+ img.image_url +'">');
+                  })
                 })
 
                 editor.ui.registry.addButton('image-gallery', {
-                  text: 'Image Gallary',
+                  text: 'Image Gallery',
                   onAction: function (_) {
                     self.handleMediaPicker(true)
                   }
@@ -100,7 +102,6 @@ export default {
         },
 
       handleImageChoose(imgs){
-          console.log(imgs)
           this.$emit('i-have-images',imgs)
       }
     },

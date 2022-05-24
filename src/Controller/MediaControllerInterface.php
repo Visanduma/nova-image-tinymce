@@ -14,5 +14,7 @@ interface MediaControllerInterface
 
     public function uploadImage(Request $request);
 
+    public function deleteImages(Request $request);
+
 
 }

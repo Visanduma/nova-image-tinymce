@@ -48,5 +48,16 @@ button.pagination-active{
             }
         }
     }
+
+    .image-selected{
+        background-color: #4099deb8;
+        transform: scale(1);
+    }
+}
+
+.btn-icon{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
