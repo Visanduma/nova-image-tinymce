@@ -18,10 +18,7 @@ Publish config with the following command:
 php artisan vendor:publish --provider="Visanduma\NovaImageTinymce\FieldServiceProvider"
 ```
 
-Now you have nova-image-tinymce.php file in your config folder. Edit TinyMCE options and image related configrations
-here.
-
-Add your TinyMCE cloud API key here or to your .env file like this:
+Edit TinyMCE options and image related configrations. add your TinyMCE cloud API key here or to your .env file like this:
 
 ```bash
 TINYMCE_API_KEY=your-key-here
@@ -33,14 +30,20 @@ Run migration to build image table
 php artisan migrate
 ```
 
-After that you are good to go! Add NovaImageTinymce class and field to your Nova Resource.
+Add NovaImageTinymce class and field to your Nova Resource.
 
 ```php
 use Visanduma\NovaImageTinymce\NovaImageTinymceEditor;
 
 ...
 
-NovaImageTinymceEditor::make('Body', 'body'),
+NovaImageTinymceEditor::make('Body', 'body')->useImageGallery()
+```
+
+Disable image upload feature
+
+```php
+NovaImageTinymceEditor::make('Body', 'body')->useImageGallery()->withoutImageUpload()
 ```
 
 ## Available options
@@ -54,11 +57,20 @@ NovaImageTinymceEditor::make('Body')->placeholder('Enter content here')
 
 For available options/plugins visit official TinyMCE 5 documentation.
 
+## Customizing image handler
+
+The default image handler is inbuilt one with it's own data table. you can chage image hnadler in config file. image handlers mustbe compatible with 
+"MediaControllerInterface"
+
+```php
+ 'media_handler' => \Visanduma\NovaImageTinymce\Controller\MediaController::class
+```
+
 ### Screenshots
 
-## Contributing
+## Idea
 
-This package was created using Kraftbit/nova-tinymce5-editor core
+This package was created on top of Kraftbit/nova-tinymce5-editor 
 https://github.com/Kraftbit/nova-tinymce5-editor
 
 ## License
