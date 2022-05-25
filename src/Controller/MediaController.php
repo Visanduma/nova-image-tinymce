@@ -48,13 +48,13 @@ class MediaController implements MediaControllerInterface
             foreach ($request->file('images') as $file){
 
                 $fileName = Str::random() . "." . $file->getClientOriginalExtension();
-                $file->storeAs(Str::finish(config('nova-tinymce5-editor.storage_path'), "/"), $fileName, ['disk' => config('nova-tinymce5-editor.disk')]);
+                $file->storeAs(Str::finish(config('nova-image-tinymce.storage_path'), "/"), $fileName, ['disk' => config('nova-image-tinymce.disk')]);
 
                 $rec = DB::table('tinymce_images')->insertGetId([
                     'name' => $file->getClientOriginalName(),
                     'file_name' => $fileName,
                     'file_size' => $file->getSize(),
-                    'disk' => config('nova-tinymce5-editor.disk'),
+                    'disk' => config('nova-image-tinymce.disk'),
                     'created_at' => now()
                 ]);
 
@@ -81,8 +81,8 @@ class MediaController implements MediaControllerInterface
         foreach ($request->get('images') as $img) {
             $file = DB::table('tinymce_images')->where('id', $img)->first();
             // remove file from storage
-            Storage::disk(config('nova-tinymce5-editor.disk'))
-                ->delete(config('nova-tinymce5-editor.storage_path') . "/" . $file->file_name);
+            Storage::disk(config('nova-image-tinymce.disk'))
+                ->delete(config('nova-image-tinymce.storage_path') . "/" . $file->file_name);
             // remove db entry
             DB::table('tinymce_images')->delete($img);
         }
@@ -103,7 +103,7 @@ class MediaController implements MediaControllerInterface
 
     private function getImageUrl($image)
     {
-        return Storage::disk(config('nova-tinymce5-editor.disk'))
-            ->url(config('nova-tinymce5-editor.storage_path') . $image);
+        return Storage::disk(config('nova-image-tinymce.disk'))
+            ->url(config('nova-image-tinymce.storage_path') . $image);
     }
 }

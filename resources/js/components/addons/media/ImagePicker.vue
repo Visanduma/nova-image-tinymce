@@ -103,7 +103,7 @@ export default {
       this.$emit('close')
     },
 
-    getMedia(url = "/nova-vendor/nova-media-tinymce/get-images") {
+    getMedia(url = "/nova-vendor/nova-image-tinymce/get-images") {
       this.imagesIsLoading = true
       Nova.request().get(url)
           .then(res => {
@@ -142,7 +142,7 @@ export default {
     searchImages() {
       this.imagesIsLoading = true
 
-      Nova.request().get('/nova-vendor/nova-media-tinymce/search-images/' + this.searchQuery)
+      Nova.request().get('/nova-vendor/nova-image-tinymce/search-images/' + this.searchQuery)
           .then(res => {
             this.images = res.data
             this.imagesIsLoading = false
@@ -165,7 +165,7 @@ export default {
       }
 
 
-      Nova.request().post('/nova-vendor/nova-media-tinymce/upload-image',formData,{
+      Nova.request().post('/nova-vendor/nova-image-tinymce/upload-image',formData,{
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -194,7 +194,7 @@ export default {
 
       this.imagesIsLoading = true
 
-      Nova.request().post('/nova-vendor/nova-media-tinymce/delete-images/',{
+      Nova.request().post('/nova-vendor/nova-image-tinymce/delete-images/',{
         images: this.selectedImages.map((itm) => itm.id)
       })
           .then(res => {
