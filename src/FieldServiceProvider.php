@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use Visanduma\NovaTwoFactor\Http\Middleware\Authorize;
 
 class FieldServiceProvider extends ServiceProvider
 {

@@ -6,7 +6,7 @@ namespace Visanduma\NovaImageTinymce;
 use Laravel\Nova\Fields\Expandable;
 use Laravel\Nova\Fields\Field;
 
-class NovaTinymce5Editor extends Field
+class NovaImageTinymceEditor extends Field
 {
     use Expandable;
 
