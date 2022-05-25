@@ -15,7 +15,7 @@ class NovaImageTinymceEditor extends Field
      *
      * @var string
      */
-    public $component = 'nova-tinymce5-editor';
+    public $component = 'nova-image-tinymce-editor';
 
     public function __construct(string $name, $attribute = null, callable $resolveCallback = null)
     {
@@ -23,7 +23,7 @@ class NovaImageTinymceEditor extends Field
         $this->resolveCallback = $resolveCallback;
 
         $this->withMeta([
-            'options' => config('nova-tinymce5-editor.options', []),
+            'options' => config('nova-image-tinymce.options', []),
             'imageGalary' => false,
             'upload' => true
         ]);
