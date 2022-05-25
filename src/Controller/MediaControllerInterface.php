@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kraftbit\NovaTinymce5Editor\Controller;
+namespace Visanduma\NovaImageTinymce\Controller;
 
 
 use Illuminate\Http\Request;

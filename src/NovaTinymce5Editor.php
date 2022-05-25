@@ -1,6 +1,7 @@
 <?php
 
-namespace Kraftbit\NovaTinymce5Editor;
+namespace Visanduma\NovaImageTinymce;
+
 
 use Laravel\Nova\Fields\Expandable;
 use Laravel\Nova\Fields\Field;

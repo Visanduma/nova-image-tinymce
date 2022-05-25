@@ -1,20 +1,21 @@
 {
-    "name": "visanduma/nova-media-tinymce",
-    "description": "A Laravel Nova TinyMCE field with media support",
-    "homepage": "https://github.com/Kraftbit/nova-tinymce5-editor",
+    "name": "visanduma/nova-image-tinymce",
+    "description": "A Laravel Nova TinyMCE field with built in image gallery support",
+    "homepage": "https://github.com/visanduma/nova-image-tinymce",
     "keywords": [
         "laravel",
         "nova",
         "tinymce",
         "editor",
-        "wysiwyg"
+        "wysiwyg",
+        "image",
+        "image-picker"
     ],
     "license": "MIT",
     "authors": [
         {
-            "name": "Mijo Džalto 'Apatrid'",
-            "email": "mijo@kraftbit.com",
-            "homepage": "https://kraftbit.com/",
+            "name": "LaHiRu",
+            "email": "lahiru@visanduma.com",
             "role": "Developer"
         }
     ],
@@ -23,13 +24,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Kraftbit\\NovaTinymce5Editor\\": "src/"
+            "Visanduma\\NovaImageTinymce\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Kraftbit\\NovaTinymce5Editor\\FieldServiceProvider"
+                "Visanduma\\NovaImageTinymce\\FieldServiceProvider"
             ]
         }
     },

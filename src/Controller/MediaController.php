@@ -1,11 +1,12 @@
 <?php
 
-namespace Kraftbit\NovaTinymce5Editor\Controller;
+namespace Visanduma\NovaImageTinymce\Controller;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class MediaController implements MediaControllerInterface
 {
@@ -47,13 +48,13 @@ class MediaController implements MediaControllerInterface
             foreach ($request->file('images') as $file){
 
                 $fileName = Str::random() . "." . $file->getClientOriginalExtension();
-                $file->storeAs(Str::finish(config('nova-tinymce5-editor.options.storage_path'),"/"), $fileName, ['disk' => config('nova-tinymce5-editor.options.disk')]);
+                $file->storeAs(Str::finish(config('nova-tinymce5-editor.storage_path'), "/"), $fileName, ['disk' => config('nova-tinymce5-editor.disk')]);
 
                 $rec = DB::table('tinymce_images')->insertGetId([
                     'name' => $file->getClientOriginalName(),
                     'file_name' => $fileName,
                     'file_size' => $file->getSize(),
-                    'disk' => config('nova-tinymce5-editor.options.disk'),
+                    'disk' => config('nova-tinymce5-editor.disk'),
                     'created_at' => now()
                 ]);
 
@@ -78,9 +79,10 @@ class MediaController implements MediaControllerInterface
     public function deleteImages(Request $request)
     {
         foreach ($request->get('images') as $img) {
-            $file =  DB::table('tinymce_images')->where('id', $img)->first();
+            $file = DB::table('tinymce_images')->where('id', $img)->first();
             // remove file from storage
-            Storage::disk(config('nova-tinymce5-editor.options.disk'))->delete(config('nova-tinymce5-editor.options.storage_path')."/".$file->file_name);
+            Storage::disk(config('nova-tinymce5-editor.disk'))
+                ->delete(config('nova-tinymce5-editor.storage_path') . "/" . $file->file_name);
             // remove db entry
             DB::table('tinymce_images')->delete($img);
         }
@@ -101,6 +103,7 @@ class MediaController implements MediaControllerInterface
 
     private function getImageUrl($image)
     {
-        return Storage::disk(config('nova-tinymce5-editor.options.disk'))->url(config('nova-tinymce5-editor.options.storage_path' ). $image);
+        return Storage::disk(config('nova-tinymce5-editor.disk'))
+            ->url(config('nova-tinymce5-editor.storage_path') . $image);
     }
 }

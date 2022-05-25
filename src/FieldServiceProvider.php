@@ -1,6 +1,6 @@
 <?php
 
-namespace Kraftbit\NovaTinymce5Editor;
+namespace Visanduma\NovaImageTinymce;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -23,15 +23,15 @@ class FieldServiceProvider extends ServiceProvider
             ->group(__DIR__.'/../routes/api.php');
 
         Nova::serving(function (ServingNova $event) {
-            Nova::script('nova-tinymce5-editor', __DIR__.'/../dist/js/field.js');
-            Nova::style('nova-tinymce5-editor', __DIR__.'/../dist/css/field.css');
+            Nova::script('nova-image-tinymce', __DIR__ . '/../dist/js/field.js');
+            Nova::style('nova-image-tinymce', __DIR__ . '/../dist/css/field.css');
         });
-        
-                $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
 
         $this->publishes([
-            __DIR__.'/../config/nova-tinymce5-editor.php' => config_path('nova-tinymce5-editor.php'),
+            __DIR__ . '/../config/nova-image-tinymce.php' => config_path('nova-image-tinymce.php'),
         ], 'config');
 
          $this->publishes([
@@ -44,5 +44,6 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
     }
 }
